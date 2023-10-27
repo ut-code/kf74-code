@@ -1,16 +1,13 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
+# Dependencies
+/node_modules
 node_modules
-dist
-dist-ssr
-*.local
+
+# Production
+/build
+
+# Generated files
+.docusaurus
+.cache-loader
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +19,25 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Others
+dist
+dist-ssr
+*.local
+
