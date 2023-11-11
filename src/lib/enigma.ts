@@ -76,7 +76,7 @@ export const convertString = (str: string, enigma: Enigma): [string, Enigma] => 
 }
 
 export const rewindScrambler = (enigma: Enigma): Enigma => {
-  let newScramblerShift = enigma.scramblerShift;
+  const newScramblerShift = enigma.scramblerShift;
   newScramblerShift[0] -= 1;
   if (newScramblerShift[0] < 0) {
     newScramblerShift[0] += 26;
