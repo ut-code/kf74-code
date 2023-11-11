@@ -73,10 +73,10 @@ export function App() {
                 scrambler: newScrambler,
                 scramblerShift: scramblerShift,
               });
-              setText([...text, ""]);
+              if (text[text.length - 1].length !== 0) setText([...text, ""]);
             }}
           >
-            Set key and clear
+            Set key and newline
           </Button>
         </Box>
       </HStack>
