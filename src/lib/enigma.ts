@@ -74,3 +74,24 @@ export const convertString = (str: string, enigma: Enigma): [string, Enigma] => 
   }
   return [convertedStr, newEnigma];
 }
+
+export const rewindScrambler = (enigma: Enigma): Enigma => {
+  let newScramblerShift = enigma.scramblerShift;
+  newScramblerShift[0] -= 1;
+  if (newScramblerShift[0] < 0) {
+    newScramblerShift[0] += 26;
+    newScramblerShift[1] -= 1;
+  }
+  if (newScramblerShift[1] < 0) {
+    newScramblerShift[1] += 26;
+    newScramblerShift[2] -= 1;
+  }
+  if (newScramblerShift[2] < 0) {
+    newScramblerShift[2] += 26;
+  }
+  return {
+    scrambler: enigma.scrambler,
+    reflector: enigma.reflector,
+    scramblerShift: newScramblerShift,
+  }
+}
