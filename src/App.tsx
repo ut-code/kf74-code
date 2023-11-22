@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { convertString, enigmaSample, rewindScrambler } from "./lib/enigma";
-import { Box, Button, Divider, HStack, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  HStack,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { useKey } from "rooks";
 import ScramblerSelector from "./lib/scramblerSelector";
 import ScramblerOrder from "./lib/ScramblerOrder";
@@ -10,6 +18,8 @@ import {
   scramblerSample2,
   scramblerSample3,
 } from "./lib/scramblerSample";
+import Key from "./lib/Key";
+import Keyboard from "./lib/Keyboard";
 
 const keys = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 
@@ -19,6 +29,7 @@ export function App() {
   const [isBlinking, setIsBlinking] = useState(true);
   const [scramblerShift, setScramblerShift] = useState([0, 0, 0]);
   const [scramblerOrder, setScramblerOrder] = useState([0, 1, 2]);
+  const [lightKey, setLightKey] = useState("");
   const eventHandler = (e: KeyboardEvent) => {
     if (e.key === "Backspace") {
       if (text[text.length - 1].length === 0) return;
@@ -35,6 +46,7 @@ export function App() {
       const newText = text;
       newText[text.length - 1] += convertedChar;
       setText(newText);
+      setLightKey(convertedChar);
       setEnigma(newEnigma);
     }
   };
@@ -50,6 +62,12 @@ export function App() {
     }, 500);
     return () => clearInterval(interval);
   });
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setLightKey("");
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [lightKey]);
 
   return (
     <VStack w="100vw">
@@ -63,7 +81,7 @@ export function App() {
         <ScramblerOrder onChange={(key: number[]) => setScramblerOrder(key)} />
         <Box>
           <Button
-            onClick={() => {
+            onClick={(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
               const newScrambler = [...enigma.scrambler];
               newScrambler[scramblerOrder[0]] = new Scrambler(scramblerSample1);
               newScrambler[scramblerOrder[1]] = new Scrambler(scramblerSample2);
@@ -74,12 +92,16 @@ export function App() {
                 scramblerShift: scramblerShift,
               });
               if (text[text.length - 1].length !== 0) setText([...text, ""]);
+              e.currentTarget.blur();
             }}
           >
             Set key and newline
           </Button>
         </Box>
       </HStack>
+      <Flex justifyContent="center" alignItems="center" my={4} width="100%">
+        <Keyboard lightKeys={lightKey} />
+      </Flex>
       <Box w={["100vw", "60vw"]}>
         {text.map((line, index) => {
           return (
