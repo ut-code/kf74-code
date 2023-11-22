@@ -1,4 +1,4 @@
-import { Box, HStack, Stack } from "@chakra-ui/react";
+import { HStack, Stack } from "@chakra-ui/react";
 import Key from "./Key";
 
 export default function Keyboard({ lightKeys = "" }: { lightKeys?: string }) {

@@ -18,7 +18,6 @@ import {
   scramblerSample2,
   scramblerSample3,
 } from "./lib/scramblerSample";
-import Key from "./lib/Key";
 import Keyboard from "./lib/Keyboard";
 
 const keys = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
